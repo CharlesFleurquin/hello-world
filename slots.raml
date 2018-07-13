@@ -1,0 +1,56 @@
+#%RAML 1.0 Resource
+
+type:
+  collection:
+    resourceType: Slot
+get:
+  description: Get a list of slots by store id
+  queryParameters:
+    store_id:
+      type: number
+      required: true
+    available:
+      type: boolean
+      required: false
+    express:
+      type: boolean
+      required: false
+    type:
+      type: SlotType
+      required: false
+    since_date:
+      type: datetime
+      required: false
+    to_date:
+      type: datetime
+      required: false
+post:
+  description: Create a slot
+  body:
+    application/json:
+      type: Slot
+
+/{slot_id}:
+  type:
+    element:
+      resourceType: Slot
+  uriParameters:
+    slot_id:
+      displayName: Slot id
+      type: number
+      minimum: 0
+      example: 4763873
+  get:
+    description: Get a single slot by id
+  put:
+    description: Update a slot
+    body:
+      application/json:
+        type: Slot
+  patch:
+    description: Update capacity of a slot (+1 or -1 for example)
+    body:
+      application/json:
+        type: SlotMovement
+  delete:
+    description: Delete a slot by id
